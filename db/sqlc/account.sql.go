@@ -86,7 +86,7 @@ func (q *Queries) GetAccount(ctx context.Context, id int32) (Account, error) {
 
 const listAccounts = `-- name: ListAccounts :many
 SELECT id, owner, balance, currency, createdat FROM ACCOUNT
-WHERE owner = $1
+WHERE owner = $1 
 ORDER BY id
 LIMIT $2
 OFFSET $3

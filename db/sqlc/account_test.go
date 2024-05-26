@@ -4,20 +4,22 @@ import (
 	"context"
 	"testing"
 
+	"simplebank/util"
+
 	"github.com/stretchr/testify/require"
-	"simplebank/db/util"
 )
 
 func createRandomAccount(t *testing.T) Account {
-	// user := createRandomUser(t)
+	user := createRandomUser(t)
 
 	arg := CreateAccountParams{
-		Owner:   util.RandomString(6) ,
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
 
 	account, err := testQueries.CreateAccount(context.Background(), arg)
+
 	require.NoError(t, err)
 	require.NotEmpty(t, account)
 
@@ -28,4 +30,27 @@ func createRandomAccount(t *testing.T) Account {
 	require.NotZero(t, account.ID)
 
 	return account
+}
+
+
+func TestListAccounts(t *testing.T) {
+	var lastAccount Account
+	for i := 0; i < 10; i++ {
+		lastAccount = createRandomAccount(t)
+	}
+
+	arg := ListAccountsParams{
+		Owner:  lastAccount.Owner,
+		Limit:  5,
+		Offset: 0,
+	}
+
+	accounts, err := testQueries.ListAccounts(context.Background(), arg)
+	require.NoError(t, err)
+	require.NotEmpty(t, accounts)
+
+	for _, account := range accounts {
+		require.NotEmpty(t, account)
+		require.Equal(t, lastAccount.Owner, account.Owner)
+	}
 }

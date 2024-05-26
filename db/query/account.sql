@@ -10,7 +10,7 @@ WHERE id = $1 LIMIT 1;
 
 -- name: ListAccounts :many
 SELECT * FROM ACCOUNT
-WHERE owner = $1
+WHERE owner = $1 
 ORDER BY id
 LIMIT $2
 OFFSET $3;

@@ -4,7 +4,7 @@ import (
 	"math/rand" 
 	"strings"
 	"time"
-	
+	// "fmt"
 )
 
 func init() {
@@ -53,3 +53,4 @@ func RandomCurrency() string {
 	n := len(currencies)
 	return currencies[rand.Intn(n)]
 }
+

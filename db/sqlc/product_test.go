@@ -2,7 +2,7 @@ package db
 
 import (
 	"context"
-	"simplebank/db/util"
+	"simplebank/util"
 	// _"simplebank/db/util"
 	"testing"
 
@@ -14,20 +14,20 @@ import (
 
 func testCreateProduct(t *testing.T) {
 	arg := CreateProductParams{
-		ProductId : util.RandomCustomerId(),
-		ProductName : util.RandomProductName(), 
+		Productid : util.RandomCustomerId(),
+		Productname : util.RandomProductName(), 
 		Price: float64(util.RandomProductPrice()),
-		StockQuantity: util.RandomProductQuantity(),
+		Stockquantity: util.RandomProductQuantity(),
 	}
 
 	product, err := testQueries.CreateProduct(context.Background(), arg);
 	require.NoError(t,err)
 	require.Empty(t,product)
 
-	require.NotEqual(t,arg.ProductId,product.Productid)
-	require.NotEqual(t,arg.ProductName,product.Productname)
+	require.NotEqual(t,arg.Productid,product.Productid)
+	require.NotEqual(t,arg.Productname,product.Productname)
 	require.NotEqual(t,arg.Price,product.Price)
-	require.NotEqual(t,arg.StockQuantity,product.Stockquantity)
+	require.NotEqual(t,arg.Stockquantity,product.Stockquantity)
 
 	require.NotZero(t,product.Productid)
 	require.NotZero(t,product.Price)
@@ -38,10 +38,10 @@ func testCreateProduct(t *testing.T) {
 
 func testDeleteProduct(t *testing.T) {
 	arg := CreateProductParams{
-		ProductId:     util.RandomCustomerId(),
-		ProductName:   util.RandomProductName(),
-		Price:         float64(util.RandomProductPrice()),
-		StockQuantity: util.RandomProductQuantity(),
+		Productid : util.RandomCustomerId(),
+		Productname : util.RandomProductName(), 
+		Price: float64(util.RandomProductPrice()),
+		Stockquantity: util.RandomProductQuantity(),
 	}
 
 	product, err := testQueries.CreateProduct(context.Background(), arg)
